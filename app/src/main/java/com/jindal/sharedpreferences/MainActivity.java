@@ -44,7 +44,11 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        retrieveData();
     }
+
+
 
     @Override
     protected void onPause() {
@@ -62,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
             isChecked = false;
 
         SharedPreferences.Editor  editor = sharedPreferences.edit();
-        editor.putString("key  name ", name);
+        editor.putString("key name", name);
         editor.putString("key message", message);
         editor.putInt("key count", count);
         editor.putBoolean("key check", isChecked);
@@ -71,5 +75,22 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(),"your data is saved",Toast.LENGTH_LONG).show();
 
 
+    }
+
+    public void retrieveData(){
+        sharedPreferences = getSharedPreferences("saveData",MODE_PRIVATE);
+        name = sharedPreferences.getString("key name", null);
+        message = sharedPreferences.getString("key message", null);
+        count = sharedPreferences.getInt("key count", 0);
+        isChecked = sharedPreferences.getBoolean("key check", false);
+
+        ed.setText(name);
+        ed_multi.setText(message);
+        counter.setText("" +count);
+
+        if(isChecked)
+            remember.setChecked(true);
+        else
+            remember.setChecked(false);
     }
 }
